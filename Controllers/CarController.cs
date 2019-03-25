@@ -1,3 +1,5 @@
+using AutoMapper;
+using CarRent.Resources;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,19 +13,25 @@ namespace CarRent.Controllers
     public class CarController: Controller
     {
         private readonly AppDbContext _dbContext;
+        private readonly IMapper _mapper;
 
-        public CarController(AppDbContext context)
+        public CarController(AppDbContext context, IMapper mapper)
         {
             _dbContext = context;
+            _mapper = mapper;
         }
-        [HttpGet("getCars")]
-        public IEnumerable<Car> GetCars() => _dbContext.Cars.ToList();
+        [HttpGet]
+        public async Task<IActionResult> GetCars() {
+            var cars = _dbContext.Cars.ToList();
+            return Ok(_mapper.Map<List<CarResource>>(cars));
+        } 
         
-        [HttpGet("getCarById/{id}")]
-        public async Task<Car> GetCarById(int id) {
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCarById(int id) {
             var car = await _dbContext.FindAsync<Car>(id);
-            if (car != null) return car;
-            return null;
+            if (car != null) 
+                return Ok(_mapper.Map<CarResource>(car));
+            return NotFound();
         }
     }
 }
