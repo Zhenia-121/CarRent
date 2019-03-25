@@ -64,24 +64,22 @@ namespace CarRent
                 entity.HasOne(d => d.Car)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.CarId)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK__Orders__CarId__2C3393D0");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK__Orders__UserId__2B3F6F97");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasIndex(e => e.Email)
-                    .HasName("UQ__Users__A9D10534CFA09720")
+                    .HasName("UQ__Users__A9D1053444E74FF4")
                     .IsUnique();
 
                 entity.HasIndex(e => e.Phone)
-                    .HasName("UQ__Users__5C7E359E946A1951")
+                    .HasName("UQ__Users__5C7E359EDEC62A8D")
                     .IsUnique();
 
                 entity.Property(e => e.DateOfBirth).HasColumnType("date");

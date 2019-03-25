@@ -17,6 +17,6 @@ namespace CarRent
         public short ModelYear { get; set; }
         public string RegistrationNumber { get; set; }
 
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Order> Orders { get; private set; }
     }
 }

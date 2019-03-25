@@ -10,7 +10,7 @@ namespace CarRent.Mapping
         string pattern = "yyyy-MM-dd";
         public  MappingProfile()
         {
-             //From Domain to Resources
+            //From Domain to Resources
             CreateMap<User, UserResource>();
             CreateMap<Car, CarResource>();
             CreateMap<Order, OrderResource>();
